@@ -2,10 +2,10 @@ import { Button, Grid, TextField, Typography, Paper } from '@mui/material'
 import React from 'react'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/Signin.css'
-import SignUp from './SignUp'
+import vendorsignup from './VendorSignUp'
 import { Link } from 'react-router-dom'
 
-const Login = () => {
+const VendorLogin = () => {
     const textf = {
         margin: '2vw',
         width: '37.5vw',
@@ -46,7 +46,7 @@ const Login = () => {
                         <TextField style={textf} id="outlined-basic" label="Password" variant="outlined"></TextField>
                         <a href='/' style={{ marginBottom: '1vw', color: '#454C59', fontFamily: 'Poppins', textDecoration: 'none' }}>Forgot password?</a>
                         <Button style={button}>LOGIN</Button>
-                        <span style={{ margin: '2vw' }}>Don't have an account? <Link to='/signup' style={{ textDecoration: 'none', color: '#0950D5' }}>Create an account</Link ></span>
+                        <span style={{ margin: '2vw' }}>Don't have an account? <Link to='/vendorsignup' style={{ textDecoration: 'none', color: '#0950D5' }}>Create an account</Link ></span>
                     </Grid>
                 </Grid>
             </div>
@@ -54,4 +54,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default VendorLogin

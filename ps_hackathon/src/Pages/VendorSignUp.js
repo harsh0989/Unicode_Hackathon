@@ -50,9 +50,9 @@ function SignUp() {
                                     <TextField
                                         margin="normal"
                                         required
-                                        id="password"
-                                        label="Password"
-                                        name="password"
+                                        id="category"
+                                        label="Category"
+                                        name="category"
                                         sx={{ width: '95%' }}
                                     />
                                 </Grid>
@@ -68,6 +68,26 @@ function SignUp() {
                                     <TextField
                                         margin="normal"
                                         required
+                                        id="phoneNumber"
+                                        label="Phone no."
+                                        name="phoneNumber"
+                                        sx={{ width: '95%' }}
+                                    />
+                                </Grid>
+                                <Grid item md={6} sx={{ display: 'block' }}>
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        id="password"
+                                        label="Password"
+                                        name="password"
+                                        sx={{ width: '95%' }}
+                                    />
+                                </Grid>
+                                <Grid item md={6} sx={{ display: 'block' }}>
+                                    <TextField
+                                        margin="normal"
+                                        required
                                         id="confirmPassword"
                                         label="Confirm Password"
                                         name="confirmPassword"
@@ -77,7 +97,7 @@ function SignUp() {
                             </Grid>
                         </div>
                         <Button style={button} sx={{ textTransform: 'capitalize' }}>Sign Up</Button>
-                        <span>Already have an account? <Link to='/login' style={{ textDecoration: 'none', color: '#0950D5' }}>Login</Link></span>
+                        <span>Already have an account? <Link to='/vendorlogin' style={{ textDecoration: 'none', color: '#0950D5' }}>Login</Link></span>
                     </Grid>
                 </Grid>
             </div>
