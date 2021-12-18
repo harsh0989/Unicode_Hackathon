@@ -1,0 +1,18 @@
+.SignUp{
+    position: relative;
+}
+
+.BestDealLogo{
+    position: absolute;
+    z-index: 1;
+    margin-left: 2%;
+    margin-top: 1%;
+}
+
+.SignUpContainer{
+    width: 45vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5%;
+}
