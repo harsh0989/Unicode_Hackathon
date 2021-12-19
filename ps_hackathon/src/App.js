@@ -6,6 +6,7 @@ import VendorSignUp from '../src/Pages/VendorSignUp'
 import { Route, Routes } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import VendorLogin from './Pages/VendorLogin';
+import CreateListPage from './Pages/CreateListPage';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/vendorsignup' element={<VendorSignUp />} />
           <Route path='/vendorlogin' element={<VendorLogin />} />
-
+          <Route path='/' element={<CreateListPage />} />
         </Routes>
       </Router>
     </>
