@@ -7,12 +7,14 @@ import { BrowserRouter as Router } from "react-router-dom";
 import VendorLogin from './Pages/VendorLogin';
 import Homepage from './Pages/Homepage';
 import Quotations from './Pages/Quotations';
+import Mainpage from './Pages/Mainpage';
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
+        <Route exact path='/' element={<Mainpage />} />
           <Route exact path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/vendorsignup' element={<VendorSignUp />} />
@@ -21,6 +23,7 @@ function App() {
           <Route path='/quotations' element={<Quotations />} />
         </Routes>
       </Router>
+  
     </>
   );
 }
