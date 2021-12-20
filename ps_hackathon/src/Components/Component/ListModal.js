@@ -23,6 +23,7 @@ export default function ListModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
   return (
     <div>
       <Button onClick={handleOpen}>Open modal</Button>
@@ -39,7 +40,7 @@ export default function ListModal() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Grid container sx={{width:'100%'}} columns={18} >
+            <Grid container sx={{ width: '100%' }} columns={18} >
               <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Item' variant='outlined' disabled></TextField></Grid>
               <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Quantity' variant='outlined'></TextField></Grid>
               <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Price ' variant='outlined'></TextField></Grid>
