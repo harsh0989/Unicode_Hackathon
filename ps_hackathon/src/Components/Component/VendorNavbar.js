@@ -15,6 +15,7 @@ export default function ButtonAppBar() {
                     <Typography variant="h6" padding={1} component="div" sx={{ flexGrow: 1 }}>
                         <img src={Logo} alt="Best Deal" width='180px' height='55px' />
                     </Typography>
+                    <Button color="inherit" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', color: '#454C59', fontSize: '18px' }}>Dashboard</Button>
                 </Toolbar>
             </AppBar>
         </Box>

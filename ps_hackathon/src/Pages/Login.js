@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/Signin.css'
 import SignUp from './SignUp'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import '../Components/Css/Login.css'
 import Cookies from "js-cookie"
@@ -77,7 +77,6 @@ const Login = () => {
     }
 
     useEffect(() => {
-
         if (Token) {
             console.log('Inside if loop')
             history.push('/createlist')
