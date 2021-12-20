@@ -55,6 +55,7 @@ const Quotations = (id) => {
                             <Grid item xs={4} >
                                 <p style={gridstyling}>Category</p>
                             </Grid>
+                           
                         </Grid>
                         {items.map((item) => {
                             return <Grid container columns={12} sx={{ width: '80%', backgroundColor: 'white', padding: '2%', height: '100%' }}>
@@ -70,10 +71,11 @@ const Quotations = (id) => {
                             </Grid>
                         })}
                     </div>
+
                 </Grid>
 
                 <Grid item xs={12} md={6} sx={{ backgroundColor: '#0950D5', minHeight: '89.5vh' }}>
-                    <div className='scroll' style={{ position: 'relative', height: '89.5vh', overflowY: 'auto' }}>
+                    <div className='scroll' style={{ position: 'relative', height: '100vh', overflowY: 'auto' }}>
                         <Grid container>
                             <Grid container>
                                 <Grid item xs={2}></Grid>

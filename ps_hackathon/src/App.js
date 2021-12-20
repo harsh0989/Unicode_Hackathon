@@ -10,6 +10,7 @@ import Quotations from './Pages/Quotations';
 import Mainpage from './Pages/Mainpage';
 import CreateListPage from './Pages/CreateListPage'
 import VendorAfterSignUpPage from './Pages/VendorAfterSignUpPage'
+import Dashboard from './Pages/Dashboard'
 // import ProtectedRoute from './ProtectedRoute';
 import { useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom'

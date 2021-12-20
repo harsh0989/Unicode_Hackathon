@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Grid } from '@mui/material'
+import { Button, Card, CardContent, Grid, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import TextField from "@mui/material/TextField";
 import '../Css/CreateList.css'
@@ -73,7 +73,7 @@ function CreateList() {
         setList({ name: selectedItem.name, quantity: selectedItem.quantity, units: selectedItem.units, max_budget: selectedItem.max_budget, industry_category: selectedItem.industry_category, description: selectedItem.description })
         setItems(filteredItems);
     }
-
+const [message,setMessage]=useState('');
     const postListNameAndDue = () => {
         let token = localStorage.getItem('Token');
         console.log(token)
@@ -98,6 +98,12 @@ function CreateList() {
                 console.log(JSON.stringify(response.data));
                 setSaveListAndDue(response.data)
                 console.log(saveListAndDue);
+                if(response.status){
+                    setMessage('List Name created')
+                    setTimeout(() => {
+                        setMessage(null)
+                    }, 3000);
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -148,6 +154,7 @@ function CreateList() {
                     </Grid>
                     {/* <Grid item md={1}></Grid> */}
                     <Grid item md={2} xs={10} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: '5px' }}><Button style={{ width: '95%', backgroundColor: '#0950D5', color: 'white', height: '80%', alignItems: 'center', fontFamily: 'poppins', marginTop: '%%', height: '56px' }} onClick={postListNameAndDue}>Save</Button></Grid>
+                    <Typography id='message' sx={{color:'#0EC576',fontFamily:'poppins', padding:'0.5%'}}>{message}</Typography>
                 </Grid>
                 <Card sx={{ width: '90vw' }}>
                     <CardContent>

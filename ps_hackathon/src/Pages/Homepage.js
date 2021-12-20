@@ -1,11 +1,11 @@
-import { React, useState,useEffect } from 'react'
+import { React, useState, useEffect } from 'react'
 // import axios from 'axios'
 import { Button, Card, Grid } from '@mui/material';
 import Navbar from '../Components/Component/Navbar'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useHistory } from 'react-router-dom';
 
 const Homepage = () => {
-
+    let history = useHistory();
     const btn = {
         backgroundColor: '#0950D5',
         color: '#ffffff',
@@ -42,7 +42,10 @@ const Homepage = () => {
     useEffect(() => {
         getList();
     }, [])
-
+    const openListItem = (id) => {
+        console.log(id)
+        history.push(`/quotations`, id)
+    }
     return (
         <>
             <Navbar />
@@ -60,7 +63,7 @@ const Homepage = () => {
                 <Grid container spacing={5} mt={0.2} sx={{ width: '95%' }}>
                     {
                         items.map((item) => {
-                            return (    
+                            return (
 
                                 <Grid item md={4} key={item.id}>
                                     <Card sx={{ borderRadius: '7px' }}>
@@ -70,7 +73,7 @@ const Homepage = () => {
                                                 <h5 style={{ margin: '0', fontFamily: 'Poppins', fontWeight: '400', color: '#88898F' }}>{item.created_at}</h5>
                                             </Grid>
                                             <Grid item md={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                <Button style={btn}>Open</Button>
+                                                <Button style={btn} onClick={() => openListItem(item.id)}>Open</Button>
                                             </Grid>
                                         </Grid>
                                     </Card>
