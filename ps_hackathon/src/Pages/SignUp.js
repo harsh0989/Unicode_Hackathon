@@ -67,10 +67,10 @@ function SignUp() {
     useEffect(() => {
         if (signUpResponse) {
             console.log('Inside if loop')
-            history.push('.login')
+            history.push('/login')
         }
         else {
-            history.push('./signup')
+            history.push('/signup')
         }
     }, [signUpResponse])
 

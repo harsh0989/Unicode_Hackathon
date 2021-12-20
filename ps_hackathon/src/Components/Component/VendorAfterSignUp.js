@@ -1,11 +1,14 @@
 import { Button, Grid, TextField } from '@mui/material'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import '../Css/VendorAfterSignUp.css'
 import '../Css/CreateList.css'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 
 function VendorAfterSignUp() {
     const tableFields = {
@@ -28,17 +31,39 @@ function VendorAfterSignUp() {
         alignItems: 'center',
         justifyContent: 'center'
     }
-    const btn={
-        backgroundColor:'#0950D5',
-        color:'#FFFFFF',
-        width:'100%',
-        fontFamily:'poppins',
-        fontWeight:'700',
-        height:'56px'
+    const btn = {
+        backgroundColor: '#0950D5',
+        color: '#FFFFFF',
+        width: '100%',
+        fontFamily: 'poppins',
+        fontWeight: '700',
+        height: '56px'
     }
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [items, setItems] = useState('')
+
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: 'https://bestdeal-site.herokuapp.com/req-doc/1/items/',
+            headers: {
+                'Authorization': 'Token 277a3f174c479e427e4db430edd51375ef4eabff',
+            },
+        };
+        axios(config).then((response) => {
+            console.log(response.data);
+            const allTheItems = response.data;
+            console.log(allTheItems);
+            setItems(allTheItems);
+        })
+    }, []);
+
+
+    const makeQuotation = (id, name) => {
+
+    }
 
     return (
         <>
@@ -46,29 +71,33 @@ function VendorAfterSignUp() {
                 <Grid container columnSpacing={2} sx={{ width: '90%', backgroundColor: 'white', padding: '1%' }} columns={17}>
                     <Grid item md={17} sx={{ fontFamily: 'Readex Pro, sans-serif', fontSize: '20px', fontWeight: '900', color: '#454C59' }} mb={4}>List of requirements</Grid>
                     <Grid item md={17} sx={{ width: '100%' }} >
-                        <Grid container columnSpacing={2} sx={{ backgroundColor: 'white', padding: '1%' }} columns={17}>
-                            <Grid item md={3} sx={displayFlex}>
-                                <p style={tableFields}>hello</p>
-                            </Grid>
-                            <Grid item md={2} sx={displayFlex}>
-                                <p style={tableFields}>hello</p>
-                            </Grid>
-                            <Grid item md={2} sx={displayFlex}>
-                                <p style={tableFields}>hello</p>
-                            </Grid>
-                            <Grid item md={2} sx={displayFlex}>
-                                <p style={tableFields}>hello</p>
-                            </Grid>
-                            <Grid item md={3} sx={displayFlex}>
-                                <p style={tableFields}>hello</p>
-                            </Grid>
-                            <Grid item md={4} sx={displayFlex}>
-                                <p style={tableFields}>hello</p>
-                            </Grid>
-                            <Grid item md={1} sx={displayFlex}>
-                                <Button onClick={handleOpen}>Create quotation</Button>
-                            </Grid>
-                        </Grid>
+                        {
+                            items.map((item) => {
+                                <Grid container columnSpacing={2} sx={{ backgroundColor: 'white', padding: '1%' }} columns={17}>
+                                    <Grid item md={3} sx={displayFlex}>
+                                        <p style={tableFields}>{item.name}</p>
+                                    </Grid>
+                                    <Grid item md={2} sx={displayFlex}>
+                                        <p style={tableFields}>{item.quantity}</p>
+                                    </Grid>
+                                    <Grid item md={2} sx={displayFlex}>
+                                        <p style={tableFields}>{item.units}</p>
+                                    </Grid>
+                                    <Grid item md={2} sx={displayFlex}>
+                                        <p style={tableFields}>{item.max_budget}</p>
+                                    </Grid>
+                                    <Grid item md={3} sx={displayFlex}>
+                                        <p style={tableFields}>{item.industry_category}</p>
+                                    </Grid>
+                                    <Grid item md={4} sx={displayFlex}>
+                                        <p style={tableFields}>{item.description}</p>
+                                    </Grid>
+                                    <Grid item md={1} sx={displayFlex}>
+                                        <Button onClick={() => { makeQuotation(item.id, item.name) }}>Create quotation</Button>
+                                    </Grid>
+                                </Grid>
+                            })
+                        }
                         <Modal
                             aria-labelledby="transition-modal-title"
                             aria-describedby="transition-modal-description"

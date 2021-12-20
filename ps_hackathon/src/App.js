@@ -13,6 +13,7 @@ import VendorAfterSignUpPage from './Pages/VendorAfterSignUpPage'
 // import ProtectedRoute from './ProtectedRoute';
 import { useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom'
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   let history = useHistory();
@@ -31,6 +32,7 @@ function App() {
           <Route path='/quotations' render={(props) => isAuth ? <Quotations /> : <SignUp />} />
           <Route path='/clientlist' render={(props) => isAuth ? <VendorAfterSignUpPage /> : <VendorSignUp />} />
           <Route path='/createlist' render={(props) => isAuth ? <CreateListPage /> : <SignUp />} />
+          <Route path='/dashboard' render={(props) => isAuth ? <Dashboard /> : <SignUp />} />
         </Switch>
 
       </Router>

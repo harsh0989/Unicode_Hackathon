@@ -7,6 +7,10 @@ import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/SignUp.css'
 import { Link } from 'react-router-dom';
 import '../Components/Css/Login.css'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const welcomeStatement = {
     fontFamily: 'Readex Pro, sans-serif', fontWeight: '900', color: '#454C59', fontSize: '40px', backgroundColor: 'transparent', boxShadow: 'none',
@@ -26,7 +30,7 @@ const button = {
 
 function SignUp() {
 
-    const [signUpDetails, setSignUpDetails] = useState({ name: '', email: '', password: '', confirmPassword: '', phoneNumber: '', industryCategory: '' })
+    const [signUpDetails, setSignUpDetails] = useState({ name: '', email: '', password: '', confirmPassword: '', phoneNumber: '', industry_category: '' })
     const [signUpResponse, setSignUpResponse] = useState('')
     let history = useHistory();
     const handleChange = (e) => {
@@ -104,16 +108,22 @@ function SignUp() {
                                         onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
-                                    <TextField
-                                        margin="normal"
-                                        required
-                                        id="industryCategory"
-                                        label="Category"
-                                        name="industryCategory"
-                                        value={signUpDetails.industryCategory}
-                                        onChange={handleChange}
-                                        sx={{ width: '95%' }}
-                                    />
+                                    <Box sx={{ maxWidth: '95%', fontFamily: 'Readex Pro, sans-serif', marginTop: '5%' }}>
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                                            <Select
+                                                required id="industry_category" label="Category" name="industry_category" value={signUpDetails.industry_category} onChange={handleChange}
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value={'CT'}>Clothing and Textiles (CT)</MenuItem>
+                                                <MenuItem value={'PCP'}>Petroleum, Chemicals and Plastics (PCP)</MenuItem>
+                                                <MenuItem value={'ECT'}>Electronics, Computers and Transportation (ECT)</MenuItem>
+                                                <MenuItem value={'FP'}>Food Production (FP)</MenuItem>
+                                                <MenuItem value={'MM'}>Metal Manufacturing (MM)</MenuItem>
+                                                <MenuItem value={'WLP'}>Wood, Leather and Paper (WLP)</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
                                 </Grid>
                                 <Grid item md={6} sx={{ display: 'block' }}>
                                     <TextField

@@ -11,7 +11,6 @@ const Dashboard = () => {
         // marginTop: '3vh',
         borderRadius: '3.5px',
         fontFamily: 'Poppins'
-
     }
     return (
         <>
