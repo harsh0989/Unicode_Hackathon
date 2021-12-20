@@ -77,7 +77,7 @@ const Login = () => {
 
         if (Token) {
             console.log('Inside if loop')
-            navigate(`/createlist`)
+            navigate(`/clienthomepage`)
         }
         else {
             navigate(`/login`)

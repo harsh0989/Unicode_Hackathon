@@ -91,7 +91,7 @@ function SignUp() {
                             </Grid>
                         </div>
                         <Button style={button} sx={{ textTransform: 'capitalize' }}>Sign Up</Button>
-                        <span>Already have an account? <Link to='/' style={{ textDecoration: 'none', color: '#0950D5' }}>Login</Link></span>
+                        <span>Already have an account? <Link to='/login' style={{ textDecoration: 'none', color: '#0950D5' }}>Login</Link></span>
                     </Grid>
                 </Grid>
             </div>

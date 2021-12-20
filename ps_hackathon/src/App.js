@@ -8,6 +8,7 @@ import VendorLogin from './Pages/VendorLogin';
 import Homepage from './Pages/Homepage';
 import Quotations from './Pages/Quotations';
 import Mainpage from './Pages/Mainpage';
+import CreateListPage from './Pages/CreateListPage'
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           <Route path='/vendorlogin' element={<VendorLogin />} />
           <Route path='/clienthomepage' element={<Homepage />} />
           <Route path='/quotations' element={<Quotations />} />
+          <Route path='/createlist' element={<CreateListPage />} />
+
         </Routes>
       </Router>
 
