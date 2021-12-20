@@ -1,10 +1,10 @@
 import { Button, Grid, TextField, Typography, Paper } from '@mui/material'
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Route} from 'react-router-dom'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/Signin.css'
 import SignUp from './SignUp'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import Cookies from "js-cookie"
 
@@ -36,7 +36,7 @@ const welcomeStatement = {
 const Login = () => {
     const [loginDetails, setLoginDetails] = useState({ email: '', password: '' })
     const [Token, setToken] = useState('');
-    let navigate = useNavigate()
+    let navigate = useNavigate();
     const handleLoginChange = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -75,8 +75,8 @@ const Login = () => {
     }
 
     useEffect(() => {
-
         if (Token) {
+            localStorage.setItem('isAuthenticated',true)
             console.log('Inside if loop')
             navigate(`/clienthomepage`)
         }

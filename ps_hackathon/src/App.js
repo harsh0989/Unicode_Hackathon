@@ -10,6 +10,7 @@ import Quotations from './Pages/Quotations';
 import Mainpage from './Pages/Mainpage';
 import CreateListPage from './Pages/CreateListPage'
 import VendorAfterSignUpPage from './Pages/VendorAfterSignUpPage'
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/quotations' element={<Quotations />} />
           <Route path='/createlist' element={<CreateListPage />} />
           <Route path='/clientlist' element={<VendorAfterSignUpPage />} />
+          <Route path='/dashboard' element={<Dashboard />} />
         </Routes>
       </Router>
 
