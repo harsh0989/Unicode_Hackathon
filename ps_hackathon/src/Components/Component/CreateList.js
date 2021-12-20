@@ -66,19 +66,23 @@ function CreateList() {
         setItems(filteredItems);
     }
 
+
+
     return (
         <>
-            <div className="createList" style={{ width: '100vw', marginTop: '2%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="createList" style={{ width: '100vw', marginTop: '2%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <Grid container sx={{ width: '90vw', backgroundColor: 'white', marginBottom: '2%', padding: '1%' }} columns={14}>
+                    <Grid item md={6}>
+                        <TextField margin="normal" sx={{ width: '95%' }} required id="listName" label="List Name" name="listName" value={list.listName} onChange={handleNameAndDue} />
+                    </Grid>
+                    <Grid item md={6} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                        <TextField margin="normal" sx={{ width: '95%' }} required id="dueDate" label="Due Date" name="dueDate" value={list.dueDate} onChange={handleNameAndDue} />
+                    </Grid>
+                    {/* <Grid item md={1}></Grid> */}
+                    <Grid item md={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: '5px' }}><Button style={{ width: '95%', backgroundColor: '#0950D5', color: 'white', height: '80%', alignItems: 'center', fontFamily: 'poppins', marginTop: '%%', height: '56px' }}>Save</Button></Grid>
+                </Grid>
                 <Card sx={{ width: '90vw' }}>
                     <CardContent>
-                        <Grid container>
-                            <Grid item md={6}>
-                                <TextField margin="normal" sx={{ width: '95%' }} required id="listName" label="List Name" name="listName" value={list.listName} onChange={handleNameAndDue} />
-                            </Grid>
-                            <Grid item md={6} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                                <TextField margin="normal" sx={{ width: '95%' }} required id="dueDate" label="Due Date" name="dueDate" value={list.dueDate} onChange={handleNameAndDue} />
-                            </Grid>
-                        </Grid>
                         <Grid container spacing={3} columns={15}>
                             <Grid item md={2}>
                                 <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="item" label="Item" name="item" value={list.item} onChange={handleChange} />

@@ -1,7 +1,7 @@
 import { Grid, Paper, Button } from '@mui/material'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/SignUp.css'
 import { Link } from 'react-router-dom';
@@ -23,6 +23,12 @@ const button = {
 }
 
 function SignUp() {
+    const [signUpDetails, setSignUpDetails] = useState({ name: '', email: '', password: '', confirmPassword: '' })
+    const handleChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        setSignUpDetails({ ...signUpDetails, [name]: value })
+    }
 
     return (
         <>
@@ -45,6 +51,8 @@ function SignUp() {
                                         id="name"
                                         label="Name"
                                         name="name"
+                                        value={signUpDetails.name}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                     <TextField
@@ -53,6 +61,8 @@ function SignUp() {
                                         id="password"
                                         label="Password"
                                         name="password"
+                                        value={signUpDetails.password}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                 </Grid>
@@ -63,6 +73,8 @@ function SignUp() {
                                         id="email"
                                         label="Username/ Email"
                                         name="email"
+                                        value={signUpDetails.email}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                     <TextField
@@ -71,13 +83,15 @@ function SignUp() {
                                         id="confirmPassword"
                                         label="Confirm Password"
                                         name="confirmPassword"
+                                        value={signUpDetails.confirmPassword}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                 </Grid>
                             </Grid>
                         </div>
                         <Button style={button} sx={{ textTransform: 'capitalize' }}>Sign Up</Button>
-                        <span>Already have an account? <Link to='/login' style={{ textDecoration: 'none', color: '#0950D5' }}>Login</Link></span>
+                        <span>Already have an account? <Link to='/' style={{ textDecoration: 'none', color: '#0950D5' }}>Login</Link></span>
                     </Grid>
                 </Grid>
             </div>
