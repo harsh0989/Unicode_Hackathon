@@ -1,6 +1,5 @@
 import { Button, Grid, TextField, Typography, Paper } from '@mui/material'
 import React, { useState, useEffect } from 'react'
-import { Route} from 'react-router-dom'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/Signin.css'
 import SignUp from './SignUp'
@@ -76,7 +75,6 @@ const Login = () => {
 
     useEffect(() => {
         if (Token) {
-            localStorage.setItem('isAuthenticated',true)
             console.log('Inside if loop')
             navigate(`/clienthomepage`)
         }
