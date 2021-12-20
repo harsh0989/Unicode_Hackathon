@@ -80,7 +80,7 @@ const Login = () => {
             navigate(`/createlist`)
         }
         else {
-            navigate(`/`)
+            navigate(`/login`)
         }
     }, [Token])
 
