@@ -65,6 +65,7 @@ const Login = () => {
                 console.log(JSON.stringify(response.data));
                 setToken(response.data.token)
                 console.log(Token);
+                localStorage.setItem('Token',response.data.token)
 
             })
             .catch(function (error) {

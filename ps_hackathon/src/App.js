@@ -9,6 +9,7 @@ import Homepage from './Pages/Homepage';
 import Quotations from './Pages/Quotations';
 import Mainpage from './Pages/Mainpage';
 import CreateListPage from './Pages/CreateListPage'
+import VendorAfterSignUp from './Components/Component/VendorAfterSignUp'
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path='/clienthomepage' element={<Homepage />} />
           <Route path='/quotations' element={<Quotations />} />
           <Route path='/createlist' element={<CreateListPage />} />
-
+          <Route path='/clientlist' element={<VendorAfterSignUp />} />
         </Routes>
       </Router>
 
