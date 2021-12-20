@@ -72,7 +72,31 @@ function CreateList() {
     }
 
     const postListNameAndDue = () => {
+        let token = localStorage.getItem('Token');
+        console.log(token)
 
+        var axios = require('axios');
+        var FormData = require('form-data');
+        var data = new FormData();
+        data.append('name', listPermanentValues.listName);
+        data.append('deadline ', listPermanentValues.dueDate);
+
+        var config = {
+            method: 'post',
+            url: 'https://bestdeal-site.herokuapp.com/req-doc/',
+            headers: {
+                'Authorization': `Token ${token}`,
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
 
@@ -80,10 +104,10 @@ function CreateList() {
         <>
             <div className="createList" style={{ width: '100vw', marginTop: '2%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                 <Grid container sx={{ width: '90vw', backgroundColor: 'white', marginBottom: '2%', padding: '1%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '4px' }} columns={14}>
-                    <Grid item md={6} xs={10} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                    <Grid item md={6} xs={10} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-start' }}>
                         <TextField margin="normal" sx={{ width: '95%' }} required id="listName" label="List Name" name="listName" value={listPermanentValues.listName} onChange={handleNameAndDue} />
                     </Grid>
-                    <Grid item md={6} xs={10} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                    <Grid item md={6} xs={10} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-start' }}>
                         <TextField margin="normal" sx={{ width: '95%' }} required id="dueDate filled-size-normal" label="Due Date" name="dueDate" type='date' value={listPermanentValues.dueDate} onChange={handleNameAndDue} />
                     </Grid>
                     {/* <Grid item md={1}></Grid> */}
