@@ -1,11 +1,13 @@
 import { Grid, Paper, Button } from '@mui/material'
 import Box from '@mui/material/Box';
-import { useNavigate } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import React, { useState, useEffect } from 'react'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/SignUp.css'
 import { Link } from 'react-router-dom';
+import '../Components/Css/Login.css'
+
 
 const welcomeStatement = {
     fontFamily: 'Readex Pro, sans-serif', fontWeight: '900', color: '#454C59', fontSize: '40px', backgroundColor: 'transparent', boxShadow: 'none',
@@ -26,7 +28,7 @@ const button = {
 function SignUp() {
     const [signUpDetails, setSignUpDetails] = useState({ name: '', email: '', password: '', confirmPassword: '' })
     const [signUpResponse, setSignUpResponse] = useState('')
-    let navigate = useNavigate();
+    let history = useHistory()
     const handleChange = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -65,10 +67,10 @@ function SignUp() {
     useEffect(() => {
         if (signUpResponse) {
             console.log('Inside if loop')
-            navigate(`/login`)
+            history.push('.login')
         }
         else {
-            navigate(`/signup`)
+            history.push('./signup')
         }
     }, [signUpResponse])
 
@@ -79,7 +81,7 @@ function SignUp() {
                 <img src={Logo} alt="Best Deal" width='180px' height='55px' className='BestDealLogo' />
                 <Grid container sx={{ height: '100vh', position: 'absolute', zIndex: '-1' }}>
 
-                    <Grid item md={4} sx={{ backgroundColor: 'white', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Grid item className='loginMQ' md={4} sx={{ backgroundColor: 'white', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <Paper style={welcomeStatement} sx={{ marginLeft: '10%', marginRight: '10%' }}>Hey there, create your first account at </Paper>
                         <Paper sx={{ fontFamily: 'Readex Pro, sans-serif', fontWeight: '1000', color: '#454C59', fontSize: '40px', backgroundColor: 'transparent', boxShadow: 'none', marginLeft: '10%' }}><i><span style={{ color: '#0950D5' }}>Best </span><span>Deal</span></i> </Paper>
                     </Grid>

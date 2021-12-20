@@ -9,6 +9,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useHistory } from 'react-router-dom';
 
 const button = {
     marginLeft: '-1vw',
@@ -29,10 +30,12 @@ const AddBtn = {
 }
 
 function CreateList() {
-    const [list, setList] = useState({ item: '', quantity: '', units: '', maxBudget: '', category: '', details: '' });
+    const history = useHistory();
+    const [list, setList] = useState({ name: '', quantity: '', units: '', max_budget: '', industry_category: '', description: '' });
     const [items, setItems] = useState([]);
     const [listPermanentValues, setListPermanentValues] = useState({ listName: '', dueDate: '' });
     const [editSingleItem, setEditSingleItem] = useState('Add');
+    const [saveListAndDue, setSaveListAndDue] = useState({})
 
     const handleChange = (e) => {
         const name = e.target.name
@@ -48,10 +51,10 @@ function CreateList() {
 
     const addToList = (e) => {
         e.preventDefault();
-        if (list.item && list.quantity && list.units && list.maxBudget && list.category && list.details) {
+        if (list.name && list.quantity && list.units && list.max_budget && list.industry_category && list.description) {
             const newRequirement = { ...list, id: new Date().getTime().toString() };
             setItems([...items, newRequirement]);
-            setList({ item: '', quantity: '', units: '', maxBudget: '', category: 'Category', details: '' })
+            setList({ name: '', quantity: '', units: '', max_budget: '', industry_category: 'Category', description: '' })
             setEditSingleItem('Add');
 
         }
@@ -67,7 +70,7 @@ function CreateList() {
         const filteredItems = items.filter(filterItem => filterItem.id !== id);
         const selectedItem = items.find(findItem => findItem.id === id);
         console.log(selectedItem);
-        setList({ item: selectedItem.item, quantity: selectedItem.quantity, units: selectedItem.units, maxBudget: selectedItem.maxBudget, category: selectedItem.category, details: selectedItem.details })
+        setList({ name: selectedItem.name, quantity: selectedItem.quantity, units: selectedItem.units, max_budget: selectedItem.max_budget, industry_category: selectedItem.industry_category, description: selectedItem.description })
         setItems(filteredItems);
     }
 
@@ -93,12 +96,45 @@ function CreateList() {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                setSaveListAndDue(response.data)
+                console.log(saveListAndDue);
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
 
+
+    const postWholeList = () => {
+        let token = localStorage.getItem('Token');
+        console.log(token)
+        var axios = require('axios');
+        var data = JSON.stringify(items);
+
+        var config = {
+            method: 'post',
+            url: `https://bestdeal-site.herokuapp.com/req-doc/${saveListAndDue.id}/items/`,
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json',
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                if (response.status) {
+                    history.push('/quotations')
+                } else {
+                    console.log('error');
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }
 
     return (
         <>
@@ -108,7 +144,7 @@ function CreateList() {
                         <TextField margin="normal" sx={{ width: '95%' }} required id="listName" label="List Name" name="listName" value={listPermanentValues.listName} onChange={handleNameAndDue} />
                     </Grid>
                     <Grid item md={6} xs={10} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-start' }}>
-                        <TextField margin="normal" sx={{ width: '95%' }} required id="dueDate filled-size-normal" label="Due Date" name="dueDate" type='date' value={listPermanentValues.dueDate} onChange={handleNameAndDue} />
+                        <TextField margin="normal" sx={{ width: '95%' }} required id="dueDate Outlined secondary" label="Due Date" name="dueDate" type='date' value={listPermanentValues.dueDate} onChange={handleNameAndDue} />
                     </Grid>
                     {/* <Grid item md={1}></Grid> */}
                     <Grid item md={2} xs={10} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: '5px' }}><Button style={{ width: '95%', backgroundColor: '#0950D5', color: 'white', height: '80%', alignItems: 'center', fontFamily: 'poppins', marginTop: '%%', height: '56px' }} onClick={postListNameAndDue}>Save</Button></Grid>
@@ -117,7 +153,7 @@ function CreateList() {
                     <CardContent>
                         <Grid container spacing={3} columns={15}>
                             <Grid item md={2} xs={15}>
-                                <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="item" label="Item" name="item" value={list.item} onChange={handleChange} />
+                                <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="name" label="Item" name="name" value={list.name} onChange={handleChange} />
                             </Grid>
                             <Grid item md={2} xs={15}>
                                 <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="quantity" label="Quantity" name="quantity" value={list.quantity} onChange={handleChange} />
@@ -126,14 +162,14 @@ function CreateList() {
                                 <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="units" label="Units" name="units" value={list.units} onChange={handleChange} />
                             </Grid>
                             <Grid item md={2} xs={15}>
-                                <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="maxBudget" label="Max Budget" name="maxBudget" value={list.maxBudget} onChange={handleChange} />
+                                <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="max_budget" label="Max Budget" name="max_budget" value={list.max_budget} onChange={handleChange} />
                             </Grid>
                             <Grid item md={2} xs={15}>
                                 <Box sx={{ minWidth: '95%', fontFamily: 'Readex Pro, sans-serif', marginTop: '10%' }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="demo-simple-select-label">Category</InputLabel>
                                         <Select
-                                            required id="category" label="Category" name="category" value={list.category} onChange={handleChange}
+                                            required id="industry_category" label="Category" name="industry_category" value={list.industry_category} onChange={handleChange}
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={'CT'}>Clothing and Textiles (CT)</MenuItem>
@@ -147,7 +183,7 @@ function CreateList() {
                                 </Box>
                             </Grid>
                             <Grid item md={4} xs={15}>
-                                <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="details" label="Details" name="details" value={list.details} onChange={handleChange} />
+                                <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="description" label="Details" name="description" value={list.description} onChange={handleChange} />
                             </Grid>
                             <Grid item md={1} mt={2} xs={15} >
                                 <Button onClick={addToList} style={AddBtn} sx={{ width: '100%' }}>{editSingleItem}</Button>
@@ -159,7 +195,7 @@ function CreateList() {
                                 return <>
                                     <Grid container spacing={3} columns={15} mb={2} key={itemInList.id}>
                                         <Grid item md={2}>
-                                            <p className="listItems">{itemInList.item}</p>
+                                            <p className="listItems">{itemInList.name}</p>
                                         </Grid>
                                         <Grid item md={2}>
                                             <p className="listItems">{itemInList.quantity}</p>
@@ -168,13 +204,13 @@ function CreateList() {
                                             <p className="listItems">{itemInList.units}</p>
                                         </Grid>
                                         <Grid item md={2}>
-                                            <p className="listItems">{itemInList.maxBudget}</p>
+                                            <p className="listItems">{itemInList.max_budget}</p>
                                         </Grid>
                                         <Grid item md={2}>
-                                            <p className="listItems">{itemInList.category}</p>
+                                            <p className="listItems">{itemInList.industry_category}</p>
                                         </Grid>
                                         <Grid item md={4}>
-                                            <p className="listItems">{itemInList.details}</p>
+                                            <p className="listItems">{itemInList.description}</p>
                                         </Grid>
                                         <Grid item md={1} mt={2} sx={{ width: '100%' }}>
                                             <Grid container sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -189,7 +225,7 @@ function CreateList() {
                             })
                         }
                         <div className="btnContainer" style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '2vw', alignItems: 'center', height: '66px' }}>
-                            <Button style={button} sx={{ textTransform: 'capitalize' }}>Create List</Button>
+                            <Button style={button} sx={{ textTransform: 'capitalize' }} onClick={postWholeList}>Create List</Button>
                         </div>
                     </CardContent>
                 </Card>

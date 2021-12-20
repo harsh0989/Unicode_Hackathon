@@ -4,7 +4,8 @@ import axios from 'axios'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/Signin.css'
 import vendorsignup from './VendorSignUp'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import '../Components/Css/Login.css'
 
 const VendorLogin = () => {
     const textf = {
@@ -34,7 +35,7 @@ const VendorLogin = () => {
 
     const [loginDetails, setLoginDetails] = useState({ email: '', password: '' })
     const [Token, setToken] = useState('');
-    let navigate = useNavigate()
+    let history = useHistory()
     const handleLoginChange = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -76,10 +77,10 @@ const VendorLogin = () => {
 
         if (Token) {
             console.log('Inside if loop')
-            navigate(`/clientlist`)
+            history.push('/clientlist')
         }
         else {
-            navigate(`/vendorlogin`)
+            history.push('/vendorlogin')
         }
     }, [Token])
 
@@ -89,7 +90,7 @@ const VendorLogin = () => {
                 <img src={Logo} alt='error' className='image' width='180px' height='55px' />
                 <Grid container style={{ position: 'absolute', zIndex: '-1' }} >
 
-                    <Grid item xs={12} md={4} sx={{ backgroundColor: 'white', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Grid className='loginMQ' item xs={12} md={4} sx={{ backgroundColor: 'white', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <Paper style={welcomeStatement} sx={{ marginLeft: '10%', marginRight: '10%' }}>Welcome back to, </Paper>
                         <Paper sx={{ fontFamily: 'Readex Pro, sans-serif', fontWeight: '1000', color: '#454C59', fontSize: '40px', backgroundColor: 'transparent', boxShadow: 'none', marginLeft: '10%' }}><i><span style={{ color: '#0950D5' }}>Best </span><span>Deal</span></i> </Paper>
                     </Grid>

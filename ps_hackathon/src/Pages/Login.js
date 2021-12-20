@@ -1,12 +1,14 @@
 import { Button, Grid, TextField, Typography, Paper } from '@mui/material'
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/Signin.css'
 import SignUp from './SignUp'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+import '../Components/Css/Login.css'
 import Cookies from "js-cookie"
+import { useHistory } from 'react-router-dom';
 
 const textf = {
     margin: '2vw',
@@ -36,7 +38,7 @@ const welcomeStatement = {
 const Login = () => {
     const [loginDetails, setLoginDetails] = useState({ email: '', password: '' })
     const [Token, setToken] = useState('');
-    let navigate = useNavigate()
+    let history = useHistory()
     const handleLoginChange = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -65,7 +67,7 @@ const Login = () => {
                 console.log(JSON.stringify(response.data));
                 setToken(response.data.token)
                 console.log(Token);
-                localStorage.setItem('Token',response.data.token)
+                localStorage.setItem('Token', response.data.token)
 
             })
             .catch(function (error) {
@@ -78,10 +80,10 @@ const Login = () => {
 
         if (Token) {
             console.log('Inside if loop')
-            navigate(`/clienthomepage`)
+            history.push('/createlist')
         }
         else {
-            navigate(`/login`)
+            history.push('/login')
         }
     }, [Token])
 
@@ -93,7 +95,7 @@ const Login = () => {
                 <img src={Logo} alt='error' className='image' width='180px' height='55px' />
                 <Grid container style={{ position: 'absolute', zIndex: '-1' }} >
 
-                    <Grid item xs={12} md={4} sx={{ backgroundColor: 'white', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Grid className='loginMQ' item xs={12} md={4} sx={{ backgroundColor: 'white', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <Paper style={welcomeStatement} sx={{ marginLeft: '10%', marginRight: '10%' }}>Welcome back to, </Paper>
                         <Paper sx={{ fontFamily: 'Readex Pro, sans-serif', fontWeight: '1000', color: '#454C59', fontSize: '40px', backgroundColor: 'transparent', boxShadow: 'none', marginLeft: '10%' }}><i><span style={{ color: '#0950D5' }}>Best </span><span>Deal</span></i> </Paper>
                     </Grid>
