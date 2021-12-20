@@ -10,6 +10,7 @@ import Quotations from './Pages/Quotations';
 import Mainpage from './Pages/Mainpage';
 import CreateListPage from './Pages/CreateListPage'
 import VendorAfterSignUpPage from './Pages/VendorAfterSignUpPage'
+import Dashboard from './Pages/Dashboard'
 // import ProtectedRoute from './ProtectedRoute';
 import { useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom'
@@ -38,6 +39,7 @@ function App() {
           <Route path='/quotations' render={(props) => isAuth ? <Quotations /> : <SignUp />} />
           <Route path='/clientlist' render={(props) => isAuth ? <VendorAfterSignUpPage /> : <VendorSignUp />} />
           <Route path='/createlist' render={(props) => isAuth ? <CreateListPage /> : <SignUp />} />
+          <Route path='/dashboard' component={Dashboard}/>
         </Switch>
 
       </Router>

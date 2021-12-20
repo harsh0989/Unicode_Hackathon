@@ -1,8 +1,11 @@
-import { React, useState } from 'react'
-// import axios from 'axios'
-import { Button, Card, Grid } from '@mui/material';
+import * as React from 'react';
+import { Button, Card, Grid,TextField } from '@mui/material';
 import VendorNavbar from '../Components/Component/VendorNavbar'
 import { useNavigate, Link } from 'react-router-dom';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
 
 const Dashboard = () => {
     const btn = {
@@ -11,7 +14,24 @@ const Dashboard = () => {
         // marginTop: '3vh',
         borderRadius: '3.5px',
         fontFamily: 'Poppins'
-
+    }
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '30%',
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+        borderRadius: '17px'
+      };
+    const [open, setOpen] = React.useState(false);
+    const handleOpen=()=>{
+        setOpen(true)
+    }
+    const handleClose=()=>{
+        setOpen(false)
     }
     return (
         <>
@@ -31,6 +51,30 @@ const Dashboard = () => {
                                 </Grid>
                                 <Grid item md={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Button style={btn}>Open</Button>
+                                    <Modal
+                                        aria-labelledby="transition-modal-title"
+                                        aria-describedby="transition-modal-description"
+                                        open={open}
+                                        onClose={handleClose}
+                                        closeAfterTransition
+                                        BackdropComponent={Backdrop}
+                                        BackdropProps={{
+                                            timeout: 500,
+                                        }}
+                                    >
+                                        <Fade in={open}>
+                                            <Box sx={style}>
+                                                <Grid container sx={{ width: '100%' }} spacing={2} columns={18} >
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Item' variant='outlined' disabled></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Quantity' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Price ' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Delivery Date' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><TextField multiline rows={4} sx={{ width: '100%', }} label='Message' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><Button>Create A Quotation</Button></Grid>
+                                                </Grid>
+                                            </Box>
+                                        </Fade>
+                                    </Modal>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -44,6 +88,30 @@ const Dashboard = () => {
                                 </Grid>
                                 <Grid item md={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Button style={btn}>Open</Button>
+                                    <Modal
+                                        aria-labelledby="transition-modal-title"
+                                        aria-describedby="transition-modal-description"
+                                        open={open}
+                                        onClose={handleClose}
+                                        closeAfterTransition
+                                        BackdropComponent={Backdrop}
+                                        BackdropProps={{
+                                            timeout: 500,
+                                        }}
+                                    >
+                                        <Fade in={open}>
+                                            <Box sx={style}>
+                                                <Grid container sx={{ width: '100%' }} spacing={2} columns={18} >
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Item' variant='outlined' disabled></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Quantity' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Price ' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Delivery Date' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><TextField multiline rows={4} sx={{ width: '100%', }} label='Message' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><Button>Create A Quotation</Button></Grid>
+                                                </Grid>
+                                            </Box>
+                                        </Fade>
+                                    </Modal>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -57,6 +125,30 @@ const Dashboard = () => {
                                 </Grid>
                                 <Grid item md={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Button style={btn}>Open</Button>
+                                    <Modal
+                                        aria-labelledby="transition-modal-title"
+                                        aria-describedby="transition-modal-description"
+                                        open={open}
+                                        onClose={handleClose}
+                                        closeAfterTransition
+                                        BackdropComponent={Backdrop}
+                                        BackdropProps={{
+                                            timeout: 500,
+                                        }}
+                                    >
+                                        <Fade in={open}>
+                                            <Box sx={style}>
+                                                <Grid container sx={{ width: '100%' }} spacing={2} columns={18} >
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Item' variant='outlined' disabled></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Quantity' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Price ' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Delivery Date' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><TextField multiline rows={4} sx={{ width: '100%', }} label='Message' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><Button>Create A Quotation</Button></Grid>
+                                                </Grid>
+                                            </Box>
+                                        </Fade>
+                                    </Modal>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -70,6 +162,30 @@ const Dashboard = () => {
                                 </Grid>
                                 <Grid item md={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Button style={btn}>Open</Button>
+                                    <Modal
+                                        aria-labelledby="transition-modal-title"
+                                        aria-describedby="transition-modal-description"
+                                        open={open}
+                                        onClose={handleClose}
+                                        closeAfterTransition
+                                        BackdropComponent={Backdrop}
+                                        BackdropProps={{
+                                            timeout: 500,
+                                        }}
+                                    >
+                                        <Fade in={open}>
+                                            <Box sx={style}>
+                                                <Grid container sx={{ width: '100%' }} spacing={2} columns={18} >
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Item' variant='outlined' disabled></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Quantity' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Price ' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Delivery Date' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><TextField multiline rows={4} sx={{ width: '100%', }} label='Message' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><Button>Create A Quotation</Button></Grid>
+                                                </Grid>
+                                            </Box>
+                                        </Fade>
+                                    </Modal>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -82,7 +198,31 @@ const Dashboard = () => {
                                     <h5 style={{ margin: '0', fontFamily: 'Poppins', fontWeight: '400', color: '#88898F' }}>19/12/2021</h5>
                                 </Grid>
                                 <Grid item md={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Button style={btn}>Open</Button>
+                                    <Button style={btn} onClick={handleOpen}>Open</Button>
+                                    <Modal
+                                        aria-labelledby="transition-modal-title"
+                                        aria-describedby="transition-modal-description"
+                                        open={open}
+                                        onClose={handleClose}
+                                        closeAfterTransition
+                                        BackdropComponent={Backdrop}
+                                        BackdropProps={{
+                                            timeout: 500,
+                                        }}
+                                    >
+                                        <Fade in={open}>
+                                            <Box sx={style}>
+                                                <Grid container sx={{ width: '100%' }} spacing={2} columns={18} >
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Item' variant='outlined' disabled></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Quantity' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Price ' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Delivery Date' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><TextField multiline rows={4} sx={{ width: '100%', }} label='Message' variant='outlined'></TextField></Grid>
+                                                    <Grid item xs={18}><Button>Create A Quotation</Button></Grid>
+                                                </Grid>
+                                            </Box>
+                                        </Fade>
+                                    </Modal>
                                 </Grid>
                             </Grid>
                         </Card>
