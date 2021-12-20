@@ -1,11 +1,11 @@
 import React from 'react'
-import Navbar from '../Components/Component/Navbar'
+import VendorNavbar from '../Components/Component/VendorNavbar'
 import VendorAfterSignUp from '../Components/Component/VendorAfterSignUp'
 
 function VendorAfterSignUpPage() {
     return (
         <>
-            <Navbar />
+            <VendorNavbar />
             <VendorAfterSignUp />
         </>
     )

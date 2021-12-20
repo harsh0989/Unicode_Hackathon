@@ -4,6 +4,11 @@ import TextField from "@mui/material/TextField";
 import '../Css/CreateList.css'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const button = {
     marginLeft: '-1vw',
@@ -26,7 +31,7 @@ const AddBtn = {
 function CreateList() {
     const [list, setList] = useState({ item: '', quantity: '', units: '', maxBudget: '', category: '', details: '' });
     const [items, setItems] = useState([]);
-    const [listPermanentValues, setListPermanentValues] = useState('');
+    const [listPermanentValues, setListPermanentValues] = useState({ listName: '', dueDate: '' });
     const [editSingleItem, setEditSingleItem] = useState('Add');
 
     const handleChange = (e) => {
@@ -46,7 +51,7 @@ function CreateList() {
         if (list.item && list.quantity && list.units && list.maxBudget && list.category && list.details) {
             const newRequirement = { ...list, id: new Date().getTime().toString() };
             setItems([...items, newRequirement]);
-            setList({ item: '', quantity: '', units: '', maxBudget: '', category: '', details: '' })
+            setList({ item: '', quantity: '', units: '', maxBudget: '', category: 'Category', details: '' })
             setEditSingleItem('Add');
 
         }
@@ -66,44 +71,62 @@ function CreateList() {
         setItems(filteredItems);
     }
 
+    const postListNameAndDue = () => {
+
+    }
 
 
     return (
         <>
             <div className="createList" style={{ width: '100vw', marginTop: '2%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                <Grid container sx={{ width: '90vw', backgroundColor: 'white', marginBottom: '2%', padding: '1%' }} columns={14}>
-                    <Grid item md={6}>
-                        <TextField margin="normal" sx={{ width: '95%' }} required id="listName" label="List Name" name="listName" value={list.listName} onChange={handleNameAndDue} />
+                <Grid container sx={{ width: '90vw', backgroundColor: 'white', marginBottom: '2%', padding: '1%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '4px' }} columns={14}>
+                    <Grid item md={6} xs={10} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                        <TextField margin="normal" sx={{ width: '95%' }} required id="listName" label="List Name" name="listName" value={listPermanentValues.listName} onChange={handleNameAndDue} />
                     </Grid>
-                    <Grid item md={6} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                        <TextField margin="normal" sx={{ width: '95%' }} required id="dueDate" label="Due Date" name="dueDate" value={list.dueDate} onChange={handleNameAndDue} />
+                    <Grid item md={6} xs={10} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                        <TextField margin="normal" sx={{ width: '95%' }} required id="dueDate filled-size-normal" label="Due Date" name="dueDate" type='date' value={listPermanentValues.dueDate} onChange={handleNameAndDue} />
                     </Grid>
                     {/* <Grid item md={1}></Grid> */}
-                    <Grid item md={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: '5px' }}><Button style={{ width: '95%', backgroundColor: '#0950D5', color: 'white', height: '80%', alignItems: 'center', fontFamily: 'poppins', marginTop: '%%', height: '56px' }}>Save</Button></Grid>
+                    <Grid item md={2} xs={10} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: '5px' }}><Button style={{ width: '95%', backgroundColor: '#0950D5', color: 'white', height: '80%', alignItems: 'center', fontFamily: 'poppins', marginTop: '%%', height: '56px' }} onClick={postListNameAndDue}>Save</Button></Grid>
                 </Grid>
                 <Card sx={{ width: '90vw' }}>
                     <CardContent>
                         <Grid container spacing={3} columns={15}>
-                            <Grid item md={2}>
+                            <Grid item md={2} xs={15}>
                                 <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="item" label="Item" name="item" value={list.item} onChange={handleChange} />
                             </Grid>
-                            <Grid item md={2}>
+                            <Grid item md={2} xs={15}>
                                 <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="quantity" label="Quantity" name="quantity" value={list.quantity} onChange={handleChange} />
                             </Grid>
-                            <Grid item md={2}>
+                            <Grid item md={2} xs={15}>
                                 <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="units" label="Units" name="units" value={list.units} onChange={handleChange} />
                             </Grid>
-                            <Grid item md={2}>
+                            <Grid item md={2} xs={15}>
                                 <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="maxBudget" label="Max Budget" name="maxBudget" value={list.maxBudget} onChange={handleChange} />
                             </Grid>
-                            <Grid item md={2}>
-                                <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="category" label="Category" name="category" value={list.category} onChange={handleChange} />
+                            <Grid item md={2} xs={15}>
+                                <Box sx={{ minWidth: '95%', fontFamily: 'Readex Pro, sans-serif', marginTop: '10%' }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                                        <Select
+                                            required id="category" label="Category" name="category" value={list.category} onChange={handleChange}
+                                            onChange={handleChange}
+                                        >
+                                            <MenuItem value={'CT'}>Clothing and Textiles (CT)</MenuItem>
+                                            <MenuItem value={'PCP'}>Petroleum, Chemicals and Plastics (PCP)</MenuItem>
+                                            <MenuItem value={'ECT'}>Electronics, Computers and Transportation (ECT)</MenuItem>
+                                            <MenuItem value={'FP'}>Food Production (FP)</MenuItem>
+                                            <MenuItem value={'MM'}>Metal Manufacturing (MM)</MenuItem>
+                                            <MenuItem value={'WLP'}>Wood, Leather and Paper (WLP)</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
                             </Grid>
-                            <Grid item md={4}>
+                            <Grid item md={4} xs={15}>
                                 <TextField margin="normal" sx={{ width: '95%', fontFamily: 'Readex Pro, sans-serif' }} required id="details" label="Details" name="details" value={list.details} onChange={handleChange} />
                             </Grid>
-                            <Grid item md={1} mt={2} >
-                                <Button onClick={addToList} style={AddBtn}>{editSingleItem}</Button>
+                            <Grid item md={1} mt={2} xs={15} >
+                                <Button onClick={addToList} style={AddBtn} sx={{ width: '100%' }}>{editSingleItem}</Button>
                             </Grid>
                         </Grid>
                         <p style={{ fontFamily: 'Readex Pro, sans-serif', fontWeight: '800', color: '#454C59' }}>Your List</p>
