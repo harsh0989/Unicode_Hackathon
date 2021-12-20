@@ -1,7 +1,8 @@
 import { Grid, Paper, Button } from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import React from 'react'
 import Logo from '../Components/Images/Logo.png'
 import '../Components/Css/SignUp.css'
 import { Link } from 'react-router-dom';
@@ -24,6 +25,59 @@ const button = {
 
 function SignUp() {
 
+    const [signUpDetails, setSignUpDetails] = useState({ name: '', email: '', password: '', confirmPassword: '', phoneNumber: '', industryCategory: '' })
+    const [signUpResponse, setSignUpResponse] = useState('')
+    let navigate = useNavigate();
+    const handleChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        setSignUpDetails({ ...signUpDetails, [name]: value })
+        console.log(signUpDetails);
+    }
+
+    const signUpOnClick = () => {
+        var axios = require('axios');
+        var FormData = require('form-data');
+        var data = new FormData();
+        data.append('name', signUpDetails.name);
+        data.append('email', signUpDetails.email);
+        data.append('password ', signUpDetails.password);
+        data.append('confirm_password ', signUpDetails.confirmPassword);
+        data.append('phone_no', signUpDetails.phoneNumber);
+        data.append('industry_category', signUpDetails.industryCategory);
+
+        console.log(data);
+
+        var config = {
+            method: 'post',
+            url: 'https://bestdeal-site.herokuapp.com/vendor_register/',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                setSignUpResponse(response.data)
+                console.log(signUpResponse);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        if (signUpResponse) {
+            console.log('Inside if loop')
+            navigate(`/vendorlogin`)
+        }
+        else {
+            navigate(`/vendorsignup`)
+        }
+    }, [signUpResponse])
+
     return (
         <>
             <div className="SignUp">
@@ -45,14 +99,18 @@ function SignUp() {
                                         id="name"
                                         label="Name"
                                         name="name"
+                                        value={signUpDetails.name}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                     <TextField
                                         margin="normal"
                                         required
-                                        id="category"
+                                        id="industryCategory"
                                         label="Category"
-                                        name="category"
+                                        name="industryCategory"
+                                        value={signUpDetails.industryCategory}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                 </Grid>
@@ -63,6 +121,8 @@ function SignUp() {
                                         id="email"
                                         label="Username/ Email"
                                         name="email"
+                                        value={signUpDetails.email}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                     <TextField
@@ -70,6 +130,8 @@ function SignUp() {
                                         required
                                         id="phoneNumber"
                                         label="Phone no."
+                                        value={signUpDetails.phoneNumber}
+                                        onChange={handleChange}
                                         name="phoneNumber"
                                         sx={{ width: '95%' }}
                                     />
@@ -81,6 +143,9 @@ function SignUp() {
                                         id="password"
                                         label="Password"
                                         name="password"
+                                        type='password'
+                                        value={signUpDetails.password}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                 </Grid>
@@ -91,12 +156,15 @@ function SignUp() {
                                         id="confirmPassword"
                                         label="Confirm Password"
                                         name="confirmPassword"
+                                        type='password'
+                                        value={signUpDetails.confirmPassword}
+                                        onChange={handleChange}
                                         sx={{ width: '95%' }}
                                     />
                                 </Grid>
                             </Grid>
                         </div>
-                        <Button style={button} sx={{ textTransform: 'capitalize' }}>Sign Up</Button>
+                        <Button style={button} sx={{ textTransform: 'capitalize' }} onClick={signUpOnClick}>Sign Up</Button>
                         <span>Already have an account? <Link to='/vendorlogin' style={{ textDecoration: 'none', color: '#0950D5' }}>Login</Link></span>
                     </Grid>
                 </Grid>
