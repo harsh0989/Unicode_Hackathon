@@ -45,6 +45,8 @@ const Login = () => {
         setLoginDetails({ ...loginDetails, [name]: value })
     }
 
+
+
     const loginOnClick = () => {
 
         var data = JSON.stringify({
@@ -68,6 +70,7 @@ const Login = () => {
                 setToken(response.data.token)
                 console.log(Token);
                 localStorage.setItem('Token', response.data.token)
+                window.location.href = '/clienthomepage';
 
             })
             .catch(function (error) {

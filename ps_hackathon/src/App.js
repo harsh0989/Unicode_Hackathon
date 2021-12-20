@@ -17,21 +17,14 @@ import { Redirect, useHistory } from 'react-router-dom'
 
 function App() {
   let history = useHistory();
-  let token = localStorage.getItem('Token')
-  const [isAuth, setIsAuth] = useState(false);
-  useEffect(() => {
-    if (token) {
-      setIsAuth(true)
-    } else {
-      setIsAuth(false)
-    }
-  }, [token])
+  const [isAuth, setIsAuth] = useState(true);
+  console.log(!!localStorage.getItem('Token'));
   return (
     <>
       <Router>
         <Switch>
           <Route exact path='/' component={Mainpage} />
-          <Route exact path='/login' component={Login} />
+          <Route exact path='/login' render={(props) => !isAuth ? <CreateListPage /> : <Login />} />
           <Route path='/signup' component={SignUp} />
           <Route path='/vendorsignup' component={VendorSignUp} />
           <Route path='/vendorlogin' component={VendorLogin} />

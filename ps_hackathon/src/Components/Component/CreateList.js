@@ -125,7 +125,7 @@ function CreateList() {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 if (response.status) {
-                    history.push('/quotations')
+                    history.push('/quotations', saveListAndDue.id)
                 } else {
                     console.log('error');
                 }
