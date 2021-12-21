@@ -44,7 +44,7 @@ const Homepage = () => {
     }, [])
     const openListItem = (id) => {
         console.log(id)
-        history.push(`/quotations`, id)
+        history.push(`/quotations`, { id: id })
     }
     return (
         <>

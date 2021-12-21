@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Navbar from '../Components/Component/Navbar'
 import { width } from '@mui/system'
+
+
 const Quotations = (id) => {
+    // const [id, setID] = useState()
     const [items, setItems] = useState([])
     const gridstyling = {
         backgroundColor: '#F5F6F9',
@@ -23,9 +26,9 @@ const Quotations = (id) => {
     useEffect(() => {
         var config = {
             method: 'get',
-            url: 'https://bestdeal-site.herokuapp.com/req-doc/1/items/',
+            url: 'https://bestdeal-site.herokuapp.com/req-doc/5/items/',
             headers: {
-                'Authorization': 'Token 277a3f174c479e427e4db430edd51375ef4eabff',
+                'Authorization': 'Token a85ec244b5d37f9c4a00bb359674384870608dee',
             },
         };
         axios(config).then((response) => {
@@ -36,6 +39,7 @@ const Quotations = (id) => {
         })
     }, []);
 
+    console.log(items)
 
     return (
         <>
@@ -55,10 +59,10 @@ const Quotations = (id) => {
                             <Grid item xs={4} >
                                 <p style={gridstyling}>Category</p>
                             </Grid>
-                           
+
                         </Grid>
                         {items.map((item) => {
-                            return <Grid container columns={12} sx={{ width: '80%', backgroundColor: 'white', padding: '2%', height: '100%' }}>
+                            return (<Grid container columns={12} sx={{ width: '80%', backgroundColor: 'white', padding: '2%', height: '100%' }}>
                                 <Grid item xs={4} >
                                     <p style={gridstyling}>{item.name}</p>
                                 </Grid>
@@ -68,7 +72,7 @@ const Quotations = (id) => {
                                 <Grid item xs={4} >
                                     <p style={gridstyling}>{item.industry_category}</p>
                                 </Grid>
-                            </Grid>
+                            </Grid>)
                         })}
                     </div>
 

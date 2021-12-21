@@ -11,6 +11,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useHistory } from 'react-router-dom';
 
+
+
 const button = {
     marginLeft: '-1vw',
     alignItems: 'center',
@@ -30,6 +32,7 @@ const AddBtn = {
 }
 
 function CreateList() {
+    const [id, setID] = useState()
     const history = useHistory();
     const [list, setList] = useState({ name: '', quantity: '', units: '', max_budget: '', industry_category: '', description: '' });
     const [items, setItems] = useState([]);
@@ -73,7 +76,7 @@ function CreateList() {
         setList({ name: selectedItem.name, quantity: selectedItem.quantity, units: selectedItem.units, max_budget: selectedItem.max_budget, industry_category: selectedItem.industry_category, description: selectedItem.description })
         setItems(filteredItems);
     }
-const [message,setMessage]=useState('');
+    const [message, setMessage] = useState('');
     const postListNameAndDue = () => {
         let token = localStorage.getItem('Token');
         console.log(token)
@@ -98,12 +101,13 @@ const [message,setMessage]=useState('');
                 console.log(JSON.stringify(response.data));
                 setSaveListAndDue(response.data)
                 console.log(saveListAndDue);
-                if(response.status){
+                if (response.status) {
                     setMessage('List Name created')
                     setTimeout(() => {
                         setMessage(null)
                     }, 3000);
                 }
+                setID(saveListAndDue.id)
             })
             .catch(function (error) {
                 console.log(error);
@@ -119,19 +123,20 @@ const [message,setMessage]=useState('');
 
         var config = {
             method: 'post',
-            url: `https://bestdeal-site.herokuapp.com/req-doc/${saveListAndDue.id}/items/`,
+            url: `https://bestdeal-site.herokuapp.com/req-doc/${id}/items/`,
             headers: {
                 'Authorization': `Token ${token}`,
                 'Content-Type': 'application/json',
             },
             data: data
         };
+        console.log(config.url)
 
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 if (response.status) {
-                    history.push('/quotations', saveListAndDue.id)
+                    history.push('/quotations', { id: id })
                 } else {
                     console.log('error');
                 }
@@ -154,7 +159,7 @@ const [message,setMessage]=useState('');
                     </Grid>
                     {/* <Grid item md={1}></Grid> */}
                     <Grid item md={2} xs={10} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: '5px' }}><Button style={{ width: '95%', backgroundColor: '#0950D5', color: 'white', height: '80%', alignItems: 'center', fontFamily: 'poppins', marginTop: '%%', height: '56px' }} onClick={postListNameAndDue}>Save</Button></Grid>
-                    <Typography id='message' sx={{color:'#0EC576',fontFamily:'poppins', padding:'0.5%'}}>{message}</Typography>
+                    <Typography id='message' sx={{ color: '#0EC576', fontFamily: 'poppins', padding: '0.5%' }}>{message}</Typography>
                 </Grid>
                 <Card sx={{ width: '90vw' }}>
                     <CardContent>

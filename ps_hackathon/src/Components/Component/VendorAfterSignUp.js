@@ -39,17 +39,66 @@ function VendorAfterSignUp() {
         fontWeight: '700',
         height: '56px'
     }
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const [items, setItems] = useState('')
+    const [open, setOpen] = useState(false);
+    const [id, setId] = useState()
+    const [units, setUnits] = useState()
+    const [name, setName] = useState('')
+    const handleOpen = (id, name) => {
+        console.log(id, name);
+        setId(id)
+        setName(name)
+        setUnits(units)
+        setOpen(true);
+    }
+    const [items, setItems] = useState([])
 
+    const [modalDetails, setModalDetails] = useState({ item: '', quantity: '', units: '', price: '', delivery_by: '', message: '', id: '' })
+    const [modal, setModal] = useState({ quantity: '', price: '', delivery_by: '', message: '' })
+    const handleChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        setModal({ ...modal, [name]: value })
+    }
+
+    const handleClose = () => {
+        let token = localStorage.getItem('ClientToken')
+        var axios = require('axios');
+        var FormData = require('form-data');
+        var data = new FormData();
+        data.append('price', modal.price);
+        data.append('item', id);
+        data.append('delivery_by', modal.delivery_by);
+        data.append('quantity_provided', modal.quantity);
+        data.append('units', units);
+        console.log(data);
+
+        var config = {
+            method: 'post',
+            url: 'https://bestdeal-site.herokuapp.com/quote/',
+            headers: {
+                'Authorization': `Token ${token}`,
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        setOpen(false)
+    };
     useEffect(() => {
+        let token = localStorage.getItem('Token')
+        console.log(token);
         var config = {
             method: 'get',
-            url: 'https://bestdeal-site.herokuapp.com/req-doc/1/items/',
+            url: 'https://bestdeal-site.herokuapp.com/req-doc/5/items/',
             headers: {
-                'Authorization': 'Token 277a3f174c479e427e4db430edd51375ef4eabff',
+                'Authorization': `Token 2a299869bb56a0ee59588238db2ff468b21948bb`,
             },
         };
         axios(config).then((response) => {
@@ -59,12 +108,7 @@ function VendorAfterSignUp() {
             setItems(allTheItems);
         })
     }, []);
-
-
-    const makeQuotation = (id, name) => {
-
-    }
-
+    console.log(items)
     return (
         <>
             <div className="container" style={{ width: '100%', marginTop: '3%' }}>
@@ -73,7 +117,7 @@ function VendorAfterSignUp() {
                     <Grid item md={17} sx={{ width: '100%' }} >
                         {
                             items.map((item) => {
-                                <Grid container columnSpacing={2} sx={{ backgroundColor: 'white', padding: '1%' }} columns={17}>
+                                return <Grid container columnSpacing={2} sx={{ backgroundColor: 'white', padding: '1%' }} columns={17}>
                                     <Grid item md={3} sx={displayFlex}>
                                         <p style={tableFields}>{item.name}</p>
                                     </Grid>
@@ -93,15 +137,18 @@ function VendorAfterSignUp() {
                                         <p style={tableFields}>{item.description}</p>
                                     </Grid>
                                     <Grid item md={1} sx={displayFlex}>
-                                        <Button onClick={() => { makeQuotation(item.id, item.name) }}>Create quotation</Button>
+                                        <Button onClick={() => handleOpen(item.id, item.name, item.units)}>Create quotation</Button>
                                     </Grid>
                                 </Grid>
                             })
                         }
+
                         <Modal
+
                             aria-labelledby="transition-modal-title"
                             aria-describedby="transition-modal-description"
                             open={open}
+                            onChange={handleChange}
                             onClose={handleClose}
                             closeAfterTransition
                             BackdropComponent={Backdrop}
@@ -112,11 +159,11 @@ function VendorAfterSignUp() {
                             <Fade in={open}>
                                 <Box sx={style}>
                                     <Grid container spacing={3} columns={18} sx={{ width: '100%' }} >
-                                        <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Item' variant='outlined' disabled></TextField></Grid>
-                                        <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Quantity' variant='outlined'></TextField></Grid>
-                                        <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Price ' variant='outlined'></TextField></Grid>
-                                        <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Delivery Date' variant='outlined'></TextField></Grid>
-                                        <Grid item xs={18}><TextField multiline rows={4} sx={{ width: '100%', }} label='Message' variant='outlined'></TextField></Grid>
+                                        <Grid item xs={9}><TextField sx={{ width: '100%' }} value={name} variant='outlined' disabled></TextField></Grid>
+                                        <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Quantity' name='quantity' value={modal.quantity} onChange={() => handleChange()} ></TextField></Grid>
+                                        <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Price' name='price' value={modal.price} onChange={() => handleChange()} ></TextField></Grid>
+                                        <Grid item xs={9}><TextField sx={{ width: '100%' }} label='Delivery Date' name='delivery_by' value={modal.delivery_by} onChange={() => handleChange()} ></TextField></Grid>
+                                        <Grid item xs={18}><TextField multiline rows={4} sx={{ width: '100%', }} name='message' label='Message' value={modal.message} onChange={handleChange} ></TextField></Grid>
                                         <Grid item xs={18} sx={{
                                             display: 'flex',
                                             alignItems: 'center',

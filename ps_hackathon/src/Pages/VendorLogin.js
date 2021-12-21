@@ -64,7 +64,7 @@ const VendorLogin = () => {
                 console.log(JSON.stringify(response.data));
                 setToken(response.data.token)
                 console.log(Token);
-                localStorage.setItem('Token', response.data.token)
+                localStorage.setItem('ClientToken', response.data.token)
 
             })
             .catch(function (error) {
