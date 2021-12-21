@@ -7,6 +7,7 @@ import { width } from '@mui/system'
 
 const Quotations = (id) => {
     // const [id, setID] = useState()
+    const [quotations, setQuotations] = useState([])
     const [items, setItems] = useState([])
     const gridstyling = {
         backgroundColor: '#F5F6F9',
@@ -26,7 +27,7 @@ const Quotations = (id) => {
     useEffect(() => {
         var config = {
             method: 'get',
-            url: 'https://bestdeal-site.herokuapp.com/req-doc/5/items/',
+            url: 'https://bestdeal-site.herokuapp.com/req-doc/1/items/',
             headers: {
                 'Authorization': 'Token a85ec244b5d37f9c4a00bb359674384870608dee',
             },
@@ -37,6 +38,28 @@ const Quotations = (id) => {
             console.log(allTheItems);
             setItems(allTheItems);
         })
+    }, []);
+
+    useEffect(() => {
+        let token = localStorage.getItem('ClientToken')
+        var axios = require('axios');
+
+        var config = {
+            method: 'get',
+            url: 'bestdeal-site.herokuapp.com/quote/',
+            headers: {
+                'Authorization': `Token ${token}`,
+            }
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                setQuotations(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }, []);
 
     console.log(items)
@@ -96,23 +119,23 @@ const Quotations = (id) => {
                                                     return <> */}
                                             <Grid container sx={{ backgroundColor: '#f5f6f9', padding: '0% 5%' }}>
                                                 <Grid item md={10} sx={{ margin: '0px', display: 'flex', alignItems: 'center', width: '100%' }}>
-                                                    <h4 >Vendor Name</h4>
+                                                    <h4 >pb@gmail.com</h4>
                                                 </Grid> <Grid item md={2} sx={{ margin: '0px', display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'flex-end' }}>
                                                     <Checkbox />
                                                 </Grid>
                                                 <Grid item md={12}>
                                                     <Grid container>
                                                         <Grid item md={3}>
-                                                            <p>Quantity</p>
+                                                            <p> 500</p>
                                                         </Grid>
                                                         <Grid item md={3}>
-                                                            <p>Units</p>
+                                                            <p>kg</p>
                                                         </Grid>
                                                         <Grid item md={3}>
-                                                            <p>delivery date</p>
+                                                            <p>21-12-2021</p>
                                                         </Grid>
                                                         <Grid item md={3} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                                            <p>price</p>
+                                                            <p>80000</p>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
