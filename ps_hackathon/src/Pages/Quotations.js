@@ -3,10 +3,13 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Navbar from '../Components/Component/Navbar'
 import { width } from '@mui/system'
+import { useLocation } from 'react-router-dom'
 
 
-const Quotations = (id) => {
+const Quotations = (props) => {
     // const [id, setID] = useState()
+    const location = useLocation()
+    const id = location.state.id
     const [quotations, setQuotations] = useState([])
     const [items, setItems] = useState([])
     const gridstyling = {
@@ -27,9 +30,9 @@ const Quotations = (id) => {
     useEffect(() => {
         var config = {
             method: 'get',
-            url: 'https://bestdeal-site.herokuapp.com/req-doc/1/items/',
+            url: `https://vismay9.pythonanywhere.com/req-doc/${id}/items/`,
             headers: {
-                'Authorization': 'Token a85ec244b5d37f9c4a00bb359674384870608dee',
+                'Authorization': `Token ${localStorage.getItem('Token')}`,
             },
         };
         axios(config).then((response) => {
@@ -41,7 +44,7 @@ const Quotations = (id) => {
     }, []);
 
     useEffect(() => {
-        let token = localStorage.getItem('ClientToken')
+        let token = localStorage.getItem('Token')
         var axios = require('axios');
 
         var config = {
@@ -85,6 +88,7 @@ const Quotations = (id) => {
 
                         </Grid>
                         {items.map((item) => {
+                            console.log(items)
                             return (<Grid container columns={12} sx={{ width: '80%', backgroundColor: 'white', padding: '2%', height: '100%' }}>
                                 <Grid item xs={4} >
                                     <p style={gridstyling}>{item.name}</p>

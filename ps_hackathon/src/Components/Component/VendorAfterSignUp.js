@@ -74,7 +74,7 @@ function VendorAfterSignUp() {
 
         var config = {
             method: 'post',
-            url: 'https://bestdeal-site.herokuapp.com/quote/',
+            url: 'https://vismay9.pythonanywhere.com/quote/',
             headers: {
                 'Authorization': `Token ${token}`,
             },
@@ -96,7 +96,7 @@ function VendorAfterSignUp() {
         console.log(token);
         var config = {
             method: 'get',
-            url: 'https://bestdeal-site.herokuapp.com/req-doc/5/items/',
+            url: 'https://vismay9.pythonanywhere.com/req-doc/5/items/',
             headers: {
                 'Authorization': `Token 2a299869bb56a0ee59588238db2ff468b21948bb`,
             },

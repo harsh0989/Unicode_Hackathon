@@ -21,7 +21,7 @@ const Homepage = () => {
 
         var config = {
             method: 'get',
-            url: 'https://bestdeal-site.herokuapp.com/req-doc/',
+            url: 'https://vismay9.pythonanywhere.com/req-doc/',
             headers: {
                 'Authorization': `Token ${token}`,
             }
@@ -44,7 +44,7 @@ const Homepage = () => {
     }, [])
     const openListItem = (id) => {
         console.log(id)
-        history.push(`/quotations`, { id: id })
+        history.push({ pathname: '/quotations', state: { id: id } })
     }
     return (
         <>
@@ -73,7 +73,12 @@ const Homepage = () => {
                                                 <h5 style={{ margin: '0', fontFamily: 'Poppins', fontWeight: '400', color: '#88898F' }}>{item.created_at}</h5>
                                             </Grid>
                                             <Grid item md={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                <Button style={btn} onClick={() => openListItem(item.id)}>Open</Button>
+                                                <Link to={{
+                                                    pathname: '/quotations',
+                                                    state: { id: item.id }
+                                                }} >
+                                                    <Button style={btn} >Open</Button>
+                                                </Link>
                                             </Grid>
                                         </Grid>
                                     </Card>

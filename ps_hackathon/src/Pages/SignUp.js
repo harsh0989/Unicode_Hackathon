@@ -46,7 +46,7 @@ function SignUp() {
 
         var config = {
             method: 'post',
-            url: 'https://bestdeal-site.herokuapp.com/client_register/',
+            url: 'https://vismay9.pythonanywhere.com/client_register/',
             headers: {
                 'Content-Type': 'application/json',
             },

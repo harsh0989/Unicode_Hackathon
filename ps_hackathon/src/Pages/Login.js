@@ -56,7 +56,7 @@ const Login = () => {
 
         var config = {
             method: 'post',
-            url: 'https://bestdeal-site.herokuapp.com/login/',
+            url: 'https://vismay9.pythonanywhere.com/login/',
             headers: {
                 'Content-Type': 'application/json',
 

@@ -89,7 +89,7 @@ function CreateList() {
 
         var config = {
             method: 'post',
-            url: 'https://bestdeal-site.herokuapp.com/req-doc/',
+            url: 'https://vismay9.pythonanywhere.com/req-doc/',
             headers: {
                 'Authorization': `Token ${token}`,
             },
@@ -98,7 +98,7 @@ function CreateList() {
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                console.log(response.data);
                 setSaveListAndDue(response.data)
                 console.log(saveListAndDue);
                 if (response.status) {
@@ -107,7 +107,7 @@ function CreateList() {
                         setMessage(null)
                     }, 3000);
                 }
-                setID(saveListAndDue.id)
+                setID(response.data.id)
             })
             .catch(function (error) {
                 console.log(error);
@@ -123,7 +123,7 @@ function CreateList() {
 
         var config = {
             method: 'post',
-            url: `https://bestdeal-site.herokuapp.com/req-doc/${id}/items/`,
+            url: `https://vismay9.pythonanywhere.com/req-doc/${id}/items/`,
             headers: {
                 'Authorization': `Token ${token}`,
                 'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ function CreateList() {
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 if (response.status) {
-                    history.push('/quotations', { id: id })
+                    history.push({ pathname: '/quotations', state: { id: id } })
                 } else {
                     console.log('error');
                 }
@@ -181,7 +181,7 @@ function CreateList() {
                                     <FormControl fullWidth>
                                         <InputLabel id="demo-simple-select-label">Category</InputLabel>
                                         <Select
-                                            required id="industry_category" label="Category" name="industry_category" value={list.industry_category} onChange={handleChange}
+                                            required id="industry_category" label="Category" name="industry_category" value={list.industry_category}
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={'CT'}>Clothing and Textiles (CT)</MenuItem>
